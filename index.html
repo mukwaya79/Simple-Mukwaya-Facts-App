@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mukwaya Facts App</title>
+    <style>
+        .container{
+            width:50%;
+            align-content: center;
+           background-color: aquamarine;
+            margin: 130px auto;
+            padding-top: 30px;
+        }
+        .container h2{
+            text-align: center;
+            margin-top: 10px;
+        }
+        .facts label{
+           text-align: center;
+           font-weight: 500;
+           font-size: 20px;
+           padding-left: 210px;
+        }
+        .facts input{
+            padding-left:10px ;
+            margin-left: 200px ;
+            height: 25px;
+            font-size: 20px;
+        }
+        button{
+           margin-left: 120px;
+           margin-bottom: 40px;
+        }
+        .fact{
+            font-size: 25px;
+            padding-left: 10px;
+            margin-top: -10px;
+            margin-bottom: 10px;
+        }
+        .qq{
+            font-size: 25px;
+            padding-left: 10px;
+            margin-top: 10px;
+            margin-bottom: 10px;
+        }
+        @media (max-width:983px) {
+            button{
+                margin-left: 30px;
+            }
+            .facts input{
+                margin-left: 30px ;
+                width: 140px;
+                padding-left: -15px;
+            }
+            .facts label{
+                margin-left: -150px ;
+            }
+            
+        }
+        
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>MUKWAYA FACTS APP</h2>
+        <div class="facts">
+            <label for="Enter Month">Enter Month</label><br>
+            <input type="number" id="month" placeholder="Enter Month 1 to 12"><br>
+            <label for="Enter Day">Enter Day</label><br>
+            <input type="number" id="day" placeholder="Enter Day 1 to 30"><br><br>
+            <button type="submit" id="generatefact">GENERATE FACT</button>
+            <button type="submit" id="randomfact">RANDOM FACT</button>
+        </div>
+        <div class="workspace">
+            <p class="fact" id ="fact"></p>
+        </div>
+        <div>
+            <p class="qq" id="qq"></p>
+        </div>
+    </div>
+    <script>
+      
+       const generatefact = document.getElementById("generatefact")
+       
+       generatefact.addEventListener("click",function generate(){
+        const month = document.getElementById("month").value
+       const day   = document.getElementById("day").value
+       const fact = document.getElementById("fact")
+           fetch("http://www.numbersapi.com/" + month + "/" + day + "/date")
+           .then((res) => res.text())
+           .then(data =>fact.innerText = data).catch(error =>fact.innerText = error )
+          
+       })
+       const randomfact = document.getElementById("randomfact")
+       randomfact.addEventListener("click",function randomfact(){
+           fact.innerText = ""
+           const num2 = Math.floor(Math.random() * (100 - 1)) + 1
+          const qq = document.getElementById("qq")
+           fetch("http://www.numbersapi.com/" + num2  )
+           .then(response => response.text())
+           .then(function(data) {  qq.innerText = data
+    
+        }).catch( error => qq.innerText = error )
+       })
+
+    </script>
+</body>
+</html>
